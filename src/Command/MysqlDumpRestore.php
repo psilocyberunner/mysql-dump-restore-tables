@@ -85,7 +85,11 @@ class MysqlDumpRestore extends Command
             $processTotalLines = new Process(['sed', '-n', $offsetDefinitions['start'] . ', ' . $offsetDefinitions['end'] . ' p', $selectedSQLFileName]);
             $processTotalLines->run();
 
-            $this->fileSystemService->appendToFile($targetFName, $processTotalLines->getOutput());
+            if ($targetFName){
+                $this->fileSystemService->appendToFile($targetFName, $processTotalLines->getOutput());
+            } else {
+                echo $processTotalLines->getOutput();
+            }
         }
 
         return Command::SUCCESS;
