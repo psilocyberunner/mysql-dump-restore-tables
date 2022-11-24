@@ -1,6 +1,7 @@
 # mysql-dump-restore-tables
 Cut and restore single/several tables from huge mysqldump files
 
+Used on *nix systems with sed/grep installed
 
 _**First - place your .sql mysqldump file into the same folder with app.php**_
 
