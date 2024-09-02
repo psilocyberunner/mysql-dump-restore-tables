@@ -82,7 +82,13 @@ class MysqlDumpRestore extends Command
         foreach ($selectedDatabaseTables as $tableName) {
             $offsetDefinitions = $tableOffsetIterator->offsetGet($tableName);
 
-            $processTotalLines = new Process(['sed', '-n', $offsetDefinitions['start'] . ', ' . $offsetDefinitions['end'] . ' p', $selectedSQLFileName]);
+            $processTotalLines = new Process(
+                ['sed', '-n', $offsetDefinitions['start'] . ', ' . $offsetDefinitions['end'] . ' p', $selectedSQLFileName],
+                null,
+                null,
+                null,
+                36000
+            );
             $processTotalLines->run();
 
             if ($targetFName){

@@ -18,7 +18,13 @@ class FileReaderService
         $processTotalLines->run();
         $linesTotal = (int)$processTotalLines->getOutput();
 
-        $processReadLines = new Process(['grep', '-n', "Table structure", $fileName]);
+        $processReadLines = new Process(
+            ['grep', '-n', "Table structure", $fileName],
+            null,
+            null,
+            null,
+            36000
+        );
         $processReadLines->run();
 
         if (!$processReadLines->isSuccessful()) {
