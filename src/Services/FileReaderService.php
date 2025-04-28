@@ -14,17 +14,11 @@ class FileReaderService
     public function getDatabaseTablesOffsets($fileName): ArrayIterator
     {
         # Get total lines
-        $processTotalLines = new Process(['sed', '-n', '$=', $fileName]);
+        $processTotalLines = new Process(command: ['sed', '-n', '$=', $fileName], timeout: 36000);
         $processTotalLines->run();
         $linesTotal = (int)$processTotalLines->getOutput();
 
-        $processReadLines = new Process(
-            ['grep', '-n', "Table structure", $fileName],
-            null,
-            null,
-            null,
-            36000
-        );
+        $processReadLines = new Process(command: ['grep', '-n', "Table structure", $fileName], timeout: 36000);
         $processReadLines->run();
 
         if (!$processReadLines->isSuccessful()) {
